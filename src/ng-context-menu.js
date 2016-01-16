@@ -33,13 +33,19 @@
             function open(event, menuElement) {
               menuElement.addClass('open');
 
+              var modal = menuElement[0].closest('div.modal-dialog');
+              if (modal) {
+                var modalLeft = modal.offsetLeft;
+                var modalTop = modal.offsetTop;
+              }
+
               var doc = $document[0].documentElement;
-              var docLeft = (window.pageXOffset || doc.scrollLeft) -
-                  (doc.clientLeft || 0),
-                docTop = (window.pageYOffset || doc.scrollTop) -
-                  (doc.clientTop || 0),
-                elementWidth = menuElement[0].scrollWidth,
-                elementHeight = menuElement[0].scrollHeight;
+              var docLeft = (modalLeft || window.pageXOffset || doc.scrollLeft) -
+                      (doc.clientLeft || 0),
+                  docTop = (modalTop || window.pageYOffset || doc.scrollTop) -
+                      (doc.clientTop || 0),
+                  elementWidth = menuElement[0].scrollWidth,
+                  elementHeight = menuElement[0].scrollHeight;
               var docWidth = doc.clientWidth + docLeft,
                 docHeight = doc.clientHeight + docTop,
                 totalWidth = elementWidth + event.pageX,
